@@ -1,3 +1,8 @@
+<div align="center">
+    <img src="./assets/Icon.svg" height="120" />
+    <p style="font-size: 30px">Chat App ⚡</p>
+</div>
+
 # Chat App
 A simple chat app with end to end encryptation. This repo is API of Chat App.
 
