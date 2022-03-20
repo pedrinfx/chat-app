@@ -5,6 +5,6 @@ import { Router } from 'express';
 const router = Router();
 
 router.post('/create', ensureAuthenticated, CreateMessageController);
-router.get('/all', ensureAuthenticated, GetAllMessagesController);
+router.get('/all', GetAllMessagesController);
 
 export default router;

@@ -16,10 +16,7 @@ async function CreateMessageService(text: string, userId: string) {
         text: message.text,
         userId: message.userId,
         created_at: message.created_at,
-        user: {
-            name: message.user.name,
-            avatar_url: message.user.avatar_url,
-        },
+        user: message.user,
     };
 
     io.emit('new_message', messageInfo);

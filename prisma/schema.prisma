@@ -12,7 +12,7 @@ datasource db {
 
 model User {
     id         String @id @default(uuid())
-    name       String
+    name       String?
     github_id  Int
     avatar_url String
     login      String
@@ -25,7 +25,7 @@ model Message {
     text       String
     created_at DateTime @default(now())
     user       User @relation(fields: [userId], references: [id])
-    userId    String
+    userId     String
     
     @@map("messages")
 }
