@@ -1,25 +1,51 @@
 import prisma from '@prisma';
 import { io } from '@app';
+import { HTTPError } from '@errors/HTTPError';
 
-async function CreateMessageService(text: string, userId: string) {
+async function CreateMessageService(
+    _message: string,
+    userId: string,
+    chatId: string
+) {
+    if (
+        !(await prisma.chat.findFirst({
+            where: {
+                id: chatId,
+            },
+        }))
+    ) {
+        throw new HTTPError('chatId.notfound', 404);
+    }
+
     const message = await prisma.message.create({
         data: {
-            text,
+            text: _message,
+            chatId,
             userId,
         },
         include: {
-            user: true,
+            Chat: {
+                include: {
+                    users: true,
+                },
+            },
+            author: true,
         },
     });
 
     const messageInfo = {
         text: message.text,
-        userId: message.userId,
         created_at: message.created_at,
-        user: message.user,
+        author: message.author,
     };
 
-    io.emit('new_message', messageInfo);
+    for (let i = 0; i < message.Chat.users.length; i++) {
+        const user = message.Chat.users[i];
+
+        if (user && user.currentSocketId) {
+            io.to(user.currentSocketId).emit('new_message', messageInfo);
+        }
+    }
 
     return message;
 }

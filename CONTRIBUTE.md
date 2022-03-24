@@ -17,7 +17,7 @@ JWT_SECRET="<your-favorite-secret>"
  3. Create a branch to commit your feature or fix: `git checkout -b my-branch`
  4. Make sure to use `yarn` to install all dependencies
 
-When finished installing the dependencies, use: `yarn prisma migrate dev` to apply the migrations
+When finished installing the dependencies, use: `yarn prisma migrate deploy` to apply the migrations
 
 # When you're done, make your Pull Request!
  * Commit the changes: `yarn commit`

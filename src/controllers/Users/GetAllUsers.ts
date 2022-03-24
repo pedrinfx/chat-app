@@ -1,16 +1,15 @@
-import { GetAllMessagesService } from '@services/Message/GetAllMessages';
+import { GetAllUsersService } from '@services/Users/GetAllUsers';
 import { Request, Response } from 'express';
 
-async function GetAllMessagesController(request: Request, response: Response) {
+async function GetAllUsersController(request: Request, response: Response) {
     let { offset } = request.body;
-    const { chatId } = request.body;
 
     if (offset) {
         offset = parseInt(offset);
     }
 
     try {
-        const service = await GetAllMessagesService(chatId, offset);
+        const service = await GetAllUsersService(offset);
 
         response.status(200).json(service);
     } catch (error: any) {
@@ -20,4 +19,4 @@ async function GetAllMessagesController(request: Request, response: Response) {
     }
 }
 
-export { GetAllMessagesController };
+export { GetAllUsersController };

@@ -1,9 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { Secret, verify } from 'jsonwebtoken';
-
-interface IPayload {
-    sub: string;
-}
+import { verifyToken } from '@utils/verifyToken';
 
 export function ensureAuthenticated(
     request: Request,
@@ -14,24 +10,21 @@ export function ensureAuthenticated(
 
     if (!authToken) {
         return response.status(401).json({
-            errorCode: 'token.invalid',
+            error: 'token.invalid',
         });
     }
 
     const [, token] = authToken.split(' ');
 
-    try {
-        const { sub } = verify(
-            token,
-            process.env.JWT_SECRET as Secret
-        ) as IPayload;
+    const result = verifyToken(token);
 
-        request.userId = sub;
+    if (result) {
+        request.userId = result;
 
         return next();
-    } catch (error) {
+    } else {
         return response.status(401).json({
-            errorCode: 'token.expired',
+            error: 'token.expired',
         });
     }
 }

@@ -2,30 +2,46 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 model User {
-    id         String @id @default(uuid())
+    id         String  @id @default(uuid())
     name       String?
     github_id  Int
     avatar_url String
     login      String
-    messages   Message[]
+
+    currentSocketId String? @unique
+
+    chats Chat[] @relation("_usersInChat")
+    Message Message[] @relation("_messages")
+
     @@map("users")
 }
 
 model Message {
-    id         String @id @default(uuid())
+    id         String   @id @default(uuid())
     text       String
-    created_at DateTime @default(now())
-    user       User @relation(fields: [userId], references: [id])
+    author     User     @relation("_messages", fields: [userId], references: [id])
     userId     String
-    
+    created_at DateTime @default(now())
+
+    Chat   Chat   @relation(fields: [chatId], references: [id])
+    chatId String
     @@map("messages")
+}
+
+model Chat {
+    id       String    @id @default(uuid())
+    messages Message[]
+
+    users User[] @relation("_usersInChat")
+
+    @@map("chats")
 }

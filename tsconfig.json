@@ -13,7 +13,9 @@
             "@controllers/*": ["./src/controllers/*"],
             "@prisma": ["./src/prisma/prisma"],
             "@app": ["./src/app"],
-            "@middlewares/*": ["./src/middlewares/*"]
+            "@middlewares/*": ["./src/middlewares/*"],
+            "@errors/*": ["./src/errors/*"],
+            "@utils/*": ["./src/utils/*"]
         },
         "outDir": "./dist",
         "typeRoots": ["./src/@types", "node_modules/@types"]

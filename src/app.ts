@@ -9,6 +9,10 @@ import { rateLimit } from 'express-rate-limit';
 import Auth from '@routers/Auth/Auth';
 import Message from '@routers/Message/Message';
 import Profile from '@routers/Profile/Profile';
+import Users from '@routers/Users/Users';
+import Chat from '@routers/Chat/Chat';
+
+import { ensureAuthenticated } from '@middlewares/Socket/ensureAuthenticated';
 
 const app = express();
 app.use(express.json());
@@ -28,9 +32,14 @@ const io = new Server(server, {
     },
 });
 
+// Socket middleware
+io.use(ensureAuthenticated);
+
 // Routers
 app.use('/auth', Auth);
 app.use('/message', Message);
 app.use('/profile', Profile);
+app.use('/users', Users);
+app.use('/chat', Chat);
 
 export { server, io };

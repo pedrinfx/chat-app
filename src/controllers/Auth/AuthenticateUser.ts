@@ -12,7 +12,9 @@ async function AuthenticateUserController(
 
         response.status(200).json(service);
     } catch (error: any) {
-        response.status(500).json({ error: error.message });
+        return response
+            .status(error.status ?? 500)
+            .json({ error: error.message });
     }
 }
 
