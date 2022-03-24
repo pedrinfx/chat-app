@@ -1,6 +1,6 @@
 <div align="center">
     <img src="./assets/Icon.svg" height="120" />
-    <p style="font-size: 30px">Chat App ⚡</p>
+    <p>Chat App ⚡</p>
 </div>
 
 # Chat App
@@ -12,6 +12,7 @@ To see web repo to click [here](https://github.com/pedrinfx/chat-app-web)
 Click [here](CONTRIBUTE.md) to see how to contribute
 
 # Techs used
-  * Express
-  * Json Web Token
-  * Socket.io
+  * [Express](https://expressjs.com/) as Framework API
+  * [Json Web Token](https://jwt.io/) as Authentication
+  * [Socket.IO](https://socket.io/) as WebSocket
+  * [PostgreSQL](https://www.postgresql.org/) as Database
