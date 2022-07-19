@@ -19,7 +19,7 @@ model User {
 
     currentSocketId String? @unique
 
-    chats Chat[] @relation("_usersInChat")
+    chats   Chat[]    @relation("_usersInChat")
     Message Message[] @relation("_messages")
 
     @@map("users")
@@ -34,6 +34,7 @@ model Message {
 
     Chat   Chat   @relation(fields: [chatId], references: [id])
     chatId String
+
     @@map("messages")
 }
 

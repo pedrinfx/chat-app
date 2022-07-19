@@ -22,6 +22,7 @@
     "dev": "ts-node-dev -r tsconfig-paths/register -r dotenv/config ./src/server.ts",
     "build": "tsc --build && tscpaths --project ./tsconfig.json -s ./src -o ./dist",
     "start": "node ./dist/server.js",
+    "lint": "eslint --fix ./src/**/*",
     "commit": "cz"
   },
   "devDependencies": {
