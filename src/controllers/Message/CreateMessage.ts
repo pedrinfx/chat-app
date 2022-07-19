@@ -10,6 +10,7 @@ async function CreateMessageController(request: Request, response: Response) {
 
         response.status(200).json(service);
     } catch (error: any) {
+        console.log(error);
         return response
             .status(error.status ?? 500)
             .json({ error: error.message });
